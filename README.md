@@ -8,7 +8,9 @@ day with my team in Shenzhen. I also write the software they run on.
 
 **[BOM Quote](https://www.bomquote.com)** is global design-to-manufacturing support for hardware
 teams. Design engineering, EVT/DVT, pilot and NPI builds, then production at scale out of our
-Shenzhen facility. Audited by Walmart and SGS, MFi certified.
+Shenzhen facility. Audited by Walmart and SGS, MFi certified. I wrote the customer platform behind
+it and have been committing to that codebase since 2016, back when shipping software meant writing
+all of it yourself.
 
 **[AsianOPS](https://www.asianops.com)** does supplier audits, quality assurance, and supply chain
 engineering for medical device and pharmaceutical manufacturers sourcing from Asia. ISO 13485,
@@ -16,7 +18,8 @@ FDA QSR, GMP. Shenzhen and Hong Kong, with Orange County on the US side.
 
 ### What I'm building
 
-**[EquatorOps](https://www.equatorops.com)**, operational change intelligence. Before you approve
+**[EquatorOps](https://www.equatorops.com)**, operational change intelligence, and a planned
+spin-out of BOM Quote. Before you approve
 a change to a part, a spec, a supplier, a process, or a configuration, you should be able to see
 everything downstream that it touches. BOMs, work orders, open POs, quality records, supplier
 qualifications, inventory already in flight.
