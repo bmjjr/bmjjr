@@ -16,11 +16,17 @@ FDA QSR, GMP. Shenzhen and Hong Kong, with Orange County on the US side.
 
 ### What I'm building
 
-**[EquatorOps](https://www.equatorops.com)**, operational change intelligence for manufacturers.
-Before you approve a change to a part, a spec, a supplier, or a process, you should be able to see
+**[EquatorOps](https://www.equatorops.com)**, operational change intelligence. Before you approve
+a change to a part, a spec, a supplier, a process, or a configuration, you should be able to see
 everything downstream that it touches. BOMs, work orders, open POs, quality records, supplier
-qualifications, inventory already in flight. Multi-tenant FastAPI and PostgreSQL, React 19 and
-TypeScript, and an MCP server so an agent can query the same graph a person would.
+qualifications, inventory already in flight.
+
+It is built as a set of universal operational engines covering inventory, compliance, execution,
+and intelligence, so one core serves aerospace and defense, construction, data centers and
+infrastructure, energy and utilities, healthcare, manufacturing, regulated industries, retail and
+omnichannel, SaaS platforms, field services, and warehousing and 3PL. Multi-tenant FastAPI and
+PostgreSQL, React 19 and TypeScript, and an MCP server so an agent can query the same graph a
+person would.
 
 **The AsianOPS audit platform**, which is what our auditors actually run on. It is offline first,
 because a supplier audit happens on a factory floor where connectivity is not a given. Findings,
@@ -28,20 +34,27 @@ evidence photos, and CAPAs are captured locally in IndexedDB against client-gene
 reconciled when the auditor is back on a network. Go with chi, sqlc, and pgx behind it, React 19
 and Dexie in front.
 
+### Where the idea came from
+
+At the end of December 2018 I published
+[Why you should be using model-based systems engineering in your design flow](https://www.linkedin.com/pulse/why-you-should-using-model-based-systems-engineering-your-bob/).
+A late design change on a kitchen appliance had just exposed how little of a product's actual
+intent is modeled anywhere. Mechanical CAD, schematics, and firmware all get built independently,
+and nobody holds a model that can tell you whether they still agree. I argued that hardware teams
+need a testable framework that surfaces those misalignments before manufacturing starts, not after.
+
+I wrote **modality** that same week. EquatorOps is that argument grown up, on a much larger
+surface.
+
 ### Open source
 
-- **[transistor](https://github.com/bomquote/transistor)** (200+ ⭐), a Python web scraping
+Both archived now, but they are where a lot of this started.
+
+- **[transistor](https://github.com/bomquote/transistor)** (211 ⭐), a Python web scraping
   framework for intelligent use cases. Written in 2018 to pull electronic component pricing at
-  scale for BOM Quote. Still maintained.
+  scale for BOM Quote.
 - **[modality](https://github.com/bomquote/modality)**, a Python framework for hardware product
-  test suites. Came out of needing repeatable end-of-line testing on our own production lines.
-
-### Why the software looks like it does
-
-Supplier qualifications going stale. A spec revision quietly invalidating a validated process. A
-BOM change landing after the POs already went out. I did not read about any of that in a
-whitepaper. Every system I build is a direct answer to something that has cost my own team real
-time on a real factory floor.
+  test suites. It matters to me well out of proportion to its star count. See above.
 
 ### Currently interested in
 
@@ -56,4 +69,3 @@ block a merge. It changes what a small team can hold at once.
 ### Elsewhere
 
 [bomquote.com](https://www.bomquote.com) · [asianops.com](https://www.asianops.com) · [equatorops.com](https://www.equatorops.com)
-
