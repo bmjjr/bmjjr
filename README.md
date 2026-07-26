@@ -34,7 +34,7 @@
 </div>
 
 <p align="center">
-<a href="#equatorops">EquatorOps</a> · <a href="#the-operating-companies">Operating Companies</a> · <a href="#where-the-change-intelligence-focus-came-from">Origin</a> · <a href="#how-i-build-now">How I Build</a> · <a href="#open-source">Open Source</a> · <a href="#before-all-this">Background</a> · <a href="#connect">Connect</a>
+<a href="#equatorops">EquatorOps</a> · <a href="#the-operating-companies">Operating Companies</a> · <a href="#where-the-change-intelligence-focus-came-from">Origin</a> · <a href="#the-software-factory">Software Factory</a> · <a href="#open-source">Open Source</a> · <a href="#before-all-this">Background</a> · <a href="#connect">Connect</a>
 </p>
 
 > [!NOTE]
@@ -137,21 +137,74 @@ Same problem, much larger surface, and this time with the operational data to ac
 
 ---
 
-## How I Build Now
+## The Software Factory
 
-Multi-agent development, at a scale that changes the work rather than decorating it.
+We designed and built our own internal software factory for multi-agent swarm development. It runs
+on the EquatorOps Agent Coordination API, so the swarm coordinates through the same platform we
+sell. The tooling is a CLI, `sf`, that wraps the coordination API, the workorder lifecycle, and
+session management behind typed contracts.
 
-Not the demo kind. The kind where many agents work one real codebase in parallel, with dependency
-tracking across issues, advisory file reservations so two lanes cannot quietly clobber each other,
-structured review gates that genuinely block a merge, and a coordination layer that keeps an audit
-trail of who decided what.
-
-The interesting problem is not getting an agent to write code. It is containment: proving that what
+The interesting problem is not getting an agent to write code. It is **containment**: proving what
 came back is correct, that the tests are not vacuously green, and that a lane did not quietly widen
-its own scope. A small team with good gates can hold far more surface than it used to.
+its own scope.
 
-There is an obvious symmetry between that and the day job. Both are about knowing what a change
-actually touches before you let it through.
+### Topology
+
+Every run is a set of **teams**, and each team is a pair:
+
+| Role | Responsibility |
+|---|---|
+| **Implementer** | Owns a lane. Holds file reservations, does the work, submits for review. |
+| **Reviewer** | Claims review requests under an atomic lease and returns a verdict. Runs as a deterministic daemon that only invokes a model when a review is actually claimed, so there is no idle reviewer burning tokens at launch. |
+| **Run-manager** | One per run, on top. Preflights, launches, monitors lane health, triages stuck lanes, gates phase transitions, and captures retrospectives. |
+
+### Workorders
+
+A run is declared as a **workorder**, scaffolded with `sf workorder init --group <g> --name <n>
+--teams Alpha,Beta,Gamma`, then put through a gauntlet before a single agent launches: a lint pass
+over assignments and manifest, a Definition of Ready gate, and layered validation from L0 through
+L5C including live API integration checks.
+
+Launch identity is computed, never guessed. `plan-launch` emits a `launch_plan.json` that is the
+canonical source for the session ref, the phase-gate and summary thread refs, per-team threads, and
+the announcer identity. A separate launch gate verifies prior-run cleanup and branch ancestry.
+Stage approvals post to the canonical phase-gate thread through a durable per-session announcer, so
+the approval is a real addressable message rather than a line in a log.
+
+### Coordination
+
+Advisory **file reservations** are exclusive by default with a TTL, and any file touched by two or
+more teams requires one. That is what stops two lanes silently clobbering each other in a shared
+worktree.
+
+Review is a protocol, not a vibe. An approved verdict is not accepted without pre-commit evidence
+attached. After consuming a response, the original requester files **adoption** and **resolution**
+ledger entries naming exactly which findings were taken and which were deferred, and the server
+enforces provenance against the canonical review lineage, so a lane cannot manufacture its own
+sign-off.
+
+Lane closeout is a state machine rather than a claim: `review_cleared_closeout_ready` →
+`canonical_artifacts_present` → `acceptance_pending` → `session_complete`. Artifacts carrying the
+wrong session ref, wrong team, or broken lineage are ignored rather than counted.
+
+### Supervising the supervisor
+
+The run-manager was the one agent nobody watched. In one run it hit a provider 503, flipped to
+blocked, and sat idle for just under eight hours until a human typed `continue`.
+
+So the RM now runs supervised. A watcher classifies transient provider failures from pane evidence,
+nudges with bounded exponential backoff until the run recovers, and distinguishes a stalled session
+from a process that actually exited, which matters because provider liveness cannot be read off the
+direct child: one provider runs as a native grandchild under a launcher thread, so naive checks
+report a healthy run-manager as dead and kill it. Detection walks descendants instead.
+
+Recovery state is persisted atomically so backoff and restart bounds survive the watcher's own
+crash, the watcher lifecycle is managed under user-systemd, and a quota ladder handles the one
+failure mode where nudging is actively counterproductive: hitting a rate limit, where the right
+move is opt-in failover to another provider rather than retrying into the wall.
+
+There is an obvious symmetry between all of this and the day job. Both are about knowing what a
+change actually touches before you let it through.
 
 ---
 
