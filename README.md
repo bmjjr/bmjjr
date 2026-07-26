@@ -238,8 +238,11 @@ An MBA at UVA Darden, supply chain consulting at PRTM, then running the outsourc
 medical device program from California to China for Tria Beauty, which took 40% out of COGS in a
 year.
 
-Twenty five years of that is why the software looks the way it does. I have spent a lot of my career
-being the person who finds out too late.
+Twenty five years of that operational exposure is what pointed me at change intelligence. I have
+spent a lot of my career being the person who finds out about an undesired change impact too late,
+and I know how much value is sitting in that gap. The knowledge required to catch it almost always
+exists somewhere in the organization already. It just lives in someone's head, which is exactly why
+the work now is turning organizational knowledge into computable change impact.
 
 ---
 
