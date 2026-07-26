@@ -2,7 +2,7 @@
 
 # Bob Jordan
 
-**Mission Viejo, CA** · Founder & CEO · Operator who writes the software
+**Mission Viejo, CA** · CEO & Chief Architect · [EquatorOps](https://www.equatorops.com) · [BOM Quote](https://www.bomquote.com) · [AsianOPS](https://www.asianops.com)
 
 ![Python](https://img.shields.io/badge/-Python-24292f?style=flat-square&logo=python&logoColor=3776AB)
 ![TypeScript](https://img.shields.io/badge/-TypeScript-24292f?style=flat-square&logo=typescript&logoColor=3178C6)
@@ -15,81 +15,95 @@
 ![C++](https://img.shields.io/badge/-C++-24292f?style=flat-square&logo=cplusplus&logoColor=00599C)
 ![Claude](https://img.shields.io/badge/-Claude-24292f?style=flat-square&logo=anthropic&logoColor=d4a27f)
 
-*I run two manufacturing companies and write the software they run on.*
+*Turning organizational knowledge into computable change impact.*
 
-![Companies founded](https://img.shields.io/static/v1?label=Companies%20founded&message=2&color=24292f&style=flat-square)
-![Shipping since](https://img.shields.io/static/v1?label=Shipping%20since&message=2016&color=24292f&style=flat-square)
-![Shenzhen](https://img.shields.io/static/v1?label=Floor&message=Shenzhen%20%2B%20Hong%20Kong&color=24292f&style=flat-square)
-![ISO 13485](https://img.shields.io/static/v1?label=Audited%20to&message=ISO%2013485%20%C2%B7%20FDA%20QSR%20%C2%B7%20GMP&color=24292f&style=flat-square)
-![MFi](https://img.shields.io/static/v1?label=Facility&message=Walmart%20%C2%B7%20SGS%20%C2%B7%20MFi&color=24292f&style=flat-square)
+![Companies founded](https://img.shields.io/static/v1?label=Companies%20founded&message=3&color=24292f&style=flat-square)
+![Years in manufacturing](https://img.shields.io/static/v1?label=In%20manufacturing&message=25%2B%20years&color=24292f&style=flat-square)
+![Units shipped](https://img.shields.io/static/v1?label=Client%20units%20shipped&message=1M%2B&color=24292f&style=flat-square)
+![Retail value](https://img.shields.io/static/v1?label=Retail%20sales%20value&message=%24100M%2B&color=24292f&style=flat-square)
+![Certifications](https://img.shields.io/static/v1?label=Operating%20to&message=ISO%209001%20%C2%B7%20ISO%2013485%20%C2%B7%20FDA%20QSR&color=24292f&style=flat-square)
 
+[![EquatorOps](https://img.shields.io/badge/equatorops.com-24292f?style=flat-square&logo=googlechrome&logoColor=white)](https://www.equatorops.com)
 [![BOM Quote](https://img.shields.io/badge/bomquote.com-24292f?style=flat-square&logo=googlechrome&logoColor=white)](https://www.bomquote.com)
 [![AsianOPS](https://img.shields.io/badge/asianops.com-24292f?style=flat-square&logo=googlechrome&logoColor=white)](https://www.asianops.com)
-[![EquatorOps](https://img.shields.io/badge/equatorops.com-24292f?style=flat-square&logo=googlechrome&logoColor=white)](https://www.equatorops.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square)](https://www.linkedin.com/in/bjordan1/)
 [![transistor](https://img.shields.io/badge/transistor-211%20%E2%98%85-24292f?style=flat-square&logo=python&logoColor=3776AB)](https://github.com/bomquote/transistor)
 
-`Change Intelligence` · `Supplier Quality` · `Design-to-Manufacturing` · `MBSE` · `Offline-First Systems` · `Multi-Agent Development`
+`Change Intelligence` · `Signal-to-Action` · `Supplier Quality` · `Design-to-Manufacturing` · `MBSE` · `Offline-First Systems` · `Multi-Agent Development`
 
 </div>
 
 <p align="center">
-<a href="#what-i-run">What I Run</a> · <a href="#what-im-building">Building Now</a> · <a href="#where-the-idea-came-from">Origin</a> · <a href="#how-i-build-now">How I Build</a> · <a href="#open-source">Open Source</a> · <a href="#connect">Connect</a>
+<a href="#equatorops">EquatorOps</a> · <a href="#the-operating-companies">Operating Companies</a> · <a href="#where-the-idea-came-from">Origin</a> · <a href="#how-i-build-now">How I Build</a> · <a href="#open-source">Open Source</a> · <a href="#before-all-this">Background</a> · <a href="#connect">Connect</a>
 </p>
 
 > [!NOTE]
-> I do not build operations software from a spec. I build it for two companies I own and run, one of
-> which has a factory floor in Shenzhen. Every feature has a person waiting for it who I will see on
-> Monday.
+> I founded and operate three companies: design-to-manufacturing, supply chain and QA engineering
+> consulting, and operational change intelligence. BOM Quote and AsianOPS run on EquatorOps today.
+> Client Zero is my own company, and the platform gets validated against real operational complexity
+> every day rather than against a roadmap.
 
 ---
 
-## What I Run
+## EquatorOps
 
-### [BOM Quote Manufacturing](https://www.bomquote.com)
+**[equatorops.com](https://www.equatorops.com)** · CEO & Chief Architect · founded 2019
 
-Global design-to-manufacturing support for hardware teams. Design engineering, EVT/DVT, pilot and
-NPI builds, then production at scale out of our Shenzhen facility. Injection molding, PCBA and SMT,
-die casting, sheet metal. The facility is audited by Walmart and SGS, and is MFi certified.
+Most operational software records work after the fact. EquatorOps helps companies understand what a
+new change, event, exception, or delay actually means, what it affects downstream, and what should
+happen next.
 
-Our customers are product design firms, high growth brands, corporate engineering teams, and
-hardware entrepreneurs who need someone to carry a product from CAD to mass production without
-losing the intent along the way.
+Too often those answers live in tribal knowledge. One experienced person knows which work orders
+will slip. Someone else knows which approvals are required, which documents need revision, which
+suppliers are affected, or which evidence has to be re-run. That knowledge is fragile, expensive,
+and does not scale.
 
-I wrote the customer platform behind it and have been committing to that codebase since 2016, back
-when shipping software meant writing all of it yourself.
+At the core is the **Verification Graph Engine**, powered by Impact Intelligence. It turns proposed
+changes and observed operational signals into computable consequences and next actions: what a
+signal touches, what it may delay or invalidate, what evidence is required, what needs approval,
+who needs to act, and what should move first.
 
-### [AsianOPS](https://www.asianops.com)
-
-Supplier audits, quality assurance, and supply chain engineering for medical device and
-pharmaceutical manufacturers sourcing from Asia. On-site audits against ISO 13485, FDA QSR, and GMP.
-Ongoing quality monitoring, technical sourcing, and program management for manufacturing
-transitions.
-
-Shenzhen and Hong Kong on one side, Orange County on the other. The credibility comes from running
-our own ISO 9001 certified manufacturing facility, which means we audit suppliers as people who have
-been audited.
-
----
-
-## What I'm Building
-
-### [EquatorOps](https://www.equatorops.com)
-
-Operational change intelligence, and a planned spin-out of BOM Quote.
-
-Before you approve a change to a part, a spec, a supplier, a process, or a configuration, you should
-be able to see everything downstream that it touches. BOMs, work orders, open POs, quality records,
-supplier qualifications, inventory already in flight. Most organizations discover that afterward, in
-a meeting, at cost.
-
-It is built as a set of universal operational engines covering inventory, compliance, execution, and
-intelligence. One core, tenant-owned data, and eleven target industries:
+Programmable operational engines for BOMs, inventory, assets, purchasing, work orders, quality,
+compliance, documents, and change control, delivered as tenant-scoped APIs. I architected the
+300+ table schema, the 30+ APIs, and the event-driven backend.
 
 `Aerospace & Defense` · `Construction` · `Data Centers & Infrastructure` · `Energy & Utilities` · `Healthcare` · `Manufacturing` · `Regulated` · `Retail & Omnichannel` · `SaaS Platforms` · `Field Services` · `Warehousing & 3PL`
 
 Multi-tenant FastAPI and PostgreSQL with SQLAlchemy 2.0, React 19 and TypeScript on the front, an
 Astro marketing surface, and an MCP server so an agent can query the same operational graph a person
 would.
+
+---
+
+## The Operating Companies
+
+### [BOM Quote Manufacturing](https://www.bomquote.com) · founded 2011
+
+End-to-end product design and contract manufacturing for complex electromechanical programs. Design
+engineering, EVT/DVT, pilot and NPI builds, then production at scale out of our Shenzhen facility.
+Injection molding, PCBA and SMT, die casting, sheet metal.
+
+Over time BOM Quote has helped ship more than **1M units representing over $100M in retail sales
+value**, including programs placed in Best Buy, Target, and Walmart. ISO 9001 certified and approved
+under Walmart Responsible Sourcing. We also designed, manufactured, and launched our own
+direct-to-consumer line, HoneyGear.
+
+I wrote the customer platform behind it and have been committing to that codebase since 2016, back
+when shipping software meant writing all of it yourself.
+
+### [AsianOPS](https://www.asianops.com) · founded 2010
+
+A boutique operations and supply chain consultancy helping Western companies build, de-risk, and
+manage manufacturing and technical operations in China. On-the-ground engineering, sourcing,
+supplier development, quality control, compliance, and execution management.
+
+The work spans consumer electronics, electromechanical products, and Class II and III medical device
+programs, audited against ISO 13485, FDA QSR, and GMP. Shenzhen and Hong Kong on one side, Orange
+County on the other.
+
+The firm's role has consistently been to close the gap between what companies plan and what actually
+happens across factories, suppliers, labs, documents, approvals, and handoffs. That gap is the
+entire reason EquatorOps exists.
 
 ### The AsianOPS Audit Platform
 
@@ -117,10 +131,9 @@ which is the most expensive possible moment to find it. I argued that hardware t
 framework that catches those misalignments before manufacturing starts.
 
 I wrote `modality` that same week, and spent the following year deep in SysML and Ecore tooling
-trying to make the idea real.
+trying to make the idea real. EquatorOps started the year after that.
 
-Everything above is that argument grown up. Same problem, much larger surface, and this time with
-the operational data to actually answer it.
+Same problem, much larger surface, and this time with the operational data to actually answer it.
 
 ---
 
@@ -134,8 +147,11 @@ structured review gates that genuinely block a merge, and a coordination layer t
 trail of who decided what.
 
 The interesting problem is not getting an agent to write code. It is containment: proving that what
-came back is correct, that the tests are not vacuously green, and that a lane did not widen its own
-scope. A small team with good gates can hold far more surface than it used to.
+came back is correct, that the tests are not vacuously green, and that a lane did not quietly widen
+its own scope. A small team with good gates can hold far more surface than it used to.
+
+There is an obvious symmetry between that and the day job. Both are about knowing what a change
+actually touches before you let it through.
 
 ---
 
@@ -150,11 +166,31 @@ Both archived now, but they are where a lot of this started.
 
 ---
 
+## Before All This
+
+I did not start in software.
+
+Seven years as a chemical operator at BASF, working full time while finishing my degree. Then shop
+floor operations at Guardian Industries, leading 100+ people across production, quality, and
+shipping. Then a greenfield startup team at Cardinal Glass, where I built a manufacturing department
+from nothing, hired 60+ people across three shifts, and helped take the facility from $0 to $20M in
+sales in two years.
+
+An MBA at UVA Darden, supply chain consulting at PRTM, then running the outsourcing of a Class II
+medical device program from California to China for Tria Beauty, which took 40% out of COGS in a
+year.
+
+Twenty five years of that is why the software looks the way it does. I have spent a lot of my career
+being the person who finds out too late.
+
+---
+
 ## Connect
 
+[![EquatorOps](https://img.shields.io/badge/equatorops.com-24292f?style=flat-square&logo=googlechrome&logoColor=white)](https://www.equatorops.com)
 [![BOM Quote](https://img.shields.io/badge/bomquote.com-24292f?style=flat-square&logo=googlechrome&logoColor=white)](https://www.bomquote.com)
 [![AsianOPS](https://img.shields.io/badge/asianops.com-24292f?style=flat-square&logo=googlechrome&logoColor=white)](https://www.asianops.com)
-[![EquatorOps](https://img.shields.io/badge/equatorops.com-24292f?style=flat-square&logo=googlechrome&logoColor=white)](https://www.equatorops.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square)](https://www.linkedin.com/in/bjordan1/)
 
-If you make physical things and your change process lives in spreadsheets and meetings, I would
-probably enjoy talking to you.
+If your change process lives in spreadsheets, tribal knowledge, and meetings, I would probably enjoy
+talking to you.
