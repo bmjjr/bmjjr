@@ -47,7 +47,7 @@
 
 ## EquatorOps
 
-**[equatorops.com](https://www.equatorops.com)** · CEO & Chief Architect · founded 2019
+**[equatorops.com](https://www.equatorops.com)** · CEO & Chief Architect · codebase started 2019
 
 Most operational software records work after the fact. EquatorOps helps companies understand what a
 new change, event, exception, or delay actually means, what it affects downstream, and what should
@@ -131,7 +131,7 @@ which is the most expensive possible moment to find it. I argued that hardware t
 framework that catches those misalignments before manufacturing starts.
 
 I wrote `modality` that same week, and spent the following year deep in SysML and Ecore tooling
-trying to make the idea real. EquatorOps started the year after that.
+trying to make the idea real. I started the EquatorOps codebase the year after that.
 
 Same problem, much larger surface, and this time with the operational data to actually answer it.
 
