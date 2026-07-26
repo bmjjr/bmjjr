@@ -34,7 +34,7 @@
 </div>
 
 <p align="center">
-<a href="#equatorops">EquatorOps</a> · <a href="#the-operating-companies">Operating Companies</a> · <a href="#where-the-idea-came-from">Origin</a> · <a href="#how-i-build-now">How I Build</a> · <a href="#open-source">Open Source</a> · <a href="#before-all-this">Background</a> · <a href="#connect">Connect</a>
+<a href="#equatorops">EquatorOps</a> · <a href="#the-operating-companies">Operating Companies</a> · <a href="#where-the-change-intelligence-focus-came-from">Origin</a> · <a href="#how-i-build-now">How I Build</a> · <a href="#open-source">Open Source</a> · <a href="#before-all-this">Background</a> · <a href="#connect">Connect</a>
 </p>
 
 > [!NOTE]
@@ -119,7 +119,7 @@ the flows that would cost a real audit if they broke.
 
 ---
 
-## Where the Idea Came From
+## Where the Change Intelligence Focus Came From
 
 At the end of December 2018 I published
 **[Why you should be using model-based systems engineering in your design flow](https://www.linkedin.com/pulse/why-you-should-using-model-based-systems-engineering-your-bob/)**.
@@ -162,7 +162,7 @@ Both archived now, but they are where a lot of this started.
 | Project | What it is |
 |---|---|
 | **[transistor](https://github.com/bomquote/transistor)** · 211 ★ | A Python web scraping framework for intelligent use cases. Written in 2018 to pull electronic component pricing at scale for BOM Quote. |
-| **[modality](https://github.com/bomquote/modality)** | A Python framework for hardware product test suites. It matters to me well out of proportion to its star count. See [above](#where-the-idea-came-from). |
+| **[modality](https://github.com/bomquote/modality)** | A Python framework for hardware product test suites. It matters to me well out of proportion to its star count. See [above](#where-the-change-intelligence-focus-came-from). |
 
 ---
 
