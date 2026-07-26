@@ -182,6 +182,7 @@ its own scope.
 
 There is an obvious symmetry between that and the day job. Both are about knowing what a change
 actually touches before you let it through.
+
 ---
 
 ## Open Source
