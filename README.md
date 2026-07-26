@@ -139,78 +139,49 @@ Same problem, much larger surface, and this time with the operational data to ac
 
 ## The Software Factory
 
-We designed and built our own internal software factory for multi-agent swarm development. It runs
-on the EquatorOps Agent Coordination API, so the swarm coordinates through the same platform we
-sell. The tooling is a CLI, `sf`, that wraps the coordination API, the workorder lifecycle, and
-session management behind typed contracts.
+We designed and built our own software factory for multi-agent swarm development. It runs on the
+EquatorOps Agent Coordination API, so the swarm coordinates through the same platform we sell.
 
-The interesting problem is not getting an agent to write code. It is **containment**: proving what
-came back is correct, that the tests are not vacuously green, and that a lane did not quietly widen
-its own scope.
-
-### Topology
-
-Every run is a set of **teams**, and each team is a pair:
+**The protocol is the interop layer.** A lane is not bound to a vendor. An Anthropic implementer and
+an OpenAI reviewer coordinate cleanly on the same run, because what they share is a typed message
+contract, a canonical thread, and a lease, not a common SDK. Any model that can hold a shell and
+speak the contract can take a lane, including open-weight and Chinese models. Provider is a recorded
+field, never an assumption baked into the tooling.
 
 | Role | Responsibility |
 |---|---|
-| **Implementer** | Owns a lane. Holds file reservations, does the work, submits for review. |
-| **Reviewer** | Claims review requests under an atomic lease and returns a verdict. Runs as a deterministic daemon that only invokes a model when a review is actually claimed, so there is no idle reviewer burning tokens at launch. |
-| **Run-manager** | One per run, on top. Preflights, launches, monitors lane health, triages stuck lanes, gates phase transitions, and captures retrospectives. |
+| **Implementer** | Owns a lane, holds file reservations, submits for review. |
+| **Reviewer** | Claims review requests under an atomic lease. Runs as a deterministic daemon that invokes a model only when a review is claimed, so nothing idles burning tokens. |
+| **Run-manager** | One per run. Preflights, launches, monitors lane health, triages stuck lanes, gates phase transitions. |
 
-### Workorders
+Runs are declared as **workorders** and gated before any agent launches: manifest lint, a Definition
+of Ready check, and layered validation including live API integration. Launch identity is computed
+into a plan artifact rather than derived by convention, so every participant resolves the same
+session, threads, and announcer.
 
-A run is declared as a **workorder**, scaffolded with `sf workorder init --group <g> --name <n>
---teams Alpha,Beta,Gamma`, then put through a gauntlet before a single agent launches: a lint pass
-over assignments and manifest, a Definition of Ready gate, and layered validation from L0 through
-L5C including live API integration checks.
+The mechanisms that make it hold:
 
-Launch identity is computed, never guessed. `plan-launch` emits a `launch_plan.json` that is the
-canonical source for the session ref, the phase-gate and summary thread refs, per-team threads, and
-the announcer identity. A separate launch gate verifies prior-run cleanup and branch ancestry.
-Stage approvals post to the canonical phase-gate thread through a durable per-session announcer, so
-the approval is a real addressable message rather than a line in a log.
+- **Exclusive file reservations** with TTL. Any file two teams touch requires one, which is what
+  stops parallel lanes silently clobbering each other.
+- **Review as a protocol.** An approved verdict is rejected without pre-commit evidence attached.
+  The requester then files adoption and resolution ledger entries naming which findings were taken
+  and which were deferred, and the server enforces provenance against the canonical review lineage.
+  A lane cannot manufacture its own sign-off.
+- **Closeout as a state machine**, not a claim: `review_cleared_closeout_ready` →
+  `canonical_artifacts_present` → `acceptance_pending` → `session_complete`. Artifacts carrying the
+  wrong session ref, wrong team, or broken lineage are ignored rather than counted.
+- **A supervised run-manager.** A watcher classifies provider failures from pane evidence, nudges
+  transient faults with bounded backoff, and restarts genuine exits from recorded launch identity.
+  Liveness resolves by walking process descendants, so a provider running as a native grandchild
+  under a launcher thread reads as alive. Recovery state persists atomically across the watcher's
+  own crash, and a quota ladder fails over across providers rather than retrying into a rate limit.
 
-### Coordination
+The interesting problem was never getting an agent to write code. It is containment: proving what
+came back is correct, that the tests are not vacuously green, and that a lane did not quietly widen
+its own scope.
 
-Advisory **file reservations** are exclusive by default with a TTL, and any file touched by two or
-more teams requires one. That is what stops two lanes silently clobbering each other in a shared
-worktree.
-
-Review is a protocol, not a vibe. An approved verdict is not accepted without pre-commit evidence
-attached. After consuming a response, the original requester files **adoption** and **resolution**
-ledger entries naming exactly which findings were taken and which were deferred, and the server
-enforces provenance against the canonical review lineage, so a lane cannot manufacture its own
-sign-off.
-
-Lane closeout is a state machine rather than a claim: `review_cleared_closeout_ready` →
-`canonical_artifacts_present` → `acceptance_pending` → `session_complete`. Artifacts carrying the
-wrong session ref, wrong team, or broken lineage are ignored rather than counted.
-
-### Supervising the supervisor
-
-The run-manager itself runs supervised, in a process that can be watched, held, and resumed:
-`supervise start | bind-launch | attach | status | hold | unhold | stop`. Session identity and the
-runtime rendezvous directory derive deterministically from the canonical workorder path, so every
-subcommand and the watcher independently compute the same target rather than agreeing by
-convention.
-
-A watcher loop classifies provider failures from pane evidence and separates a transient network
-fault from a session that has genuinely ended. Transient failures are nudged with bounded
-exponential backoff until the run resumes. Liveness resolves by walking process descendants rather
-than the direct child, so a provider running as a native grandchild under a launcher thread is
-correctly read as alive. A process that exited abnormally is restarted from its recorded launch
-identity instead of nudged, since nudging a dead shell accomplishes nothing.
-
-Recovery state persists atomically, so backoff and restart bounds stay honest across the watcher's
-own crash. The watcher lifecycle is managed under user-systemd. A quota ladder handles rate limits
-with opt-in cross-provider failover, and the supervisor is provider-neutral by construction:
-provider kind is an explicit recorded field and all launch and resume argv passes through a narrow
-adapter.
-
-There is an obvious symmetry between all of this and the day job. Both are about knowing what a
-change actually touches before you let it through.
-
+There is an obvious symmetry between that and the day job. Both are about knowing what a change
+actually touches before you let it through.
 ---
 
 ## Open Source
