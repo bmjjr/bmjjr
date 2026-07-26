@@ -189,19 +189,24 @@ wrong session ref, wrong team, or broken lineage are ignored rather than counted
 
 ### Supervising the supervisor
 
-The run-manager was the one agent nobody watched. In one run it hit a provider 503, flipped to
-blocked, and sat idle for just under eight hours until a human typed `continue`.
+The run-manager itself runs supervised, in a process that can be watched, held, and resumed:
+`supervise start | bind-launch | attach | status | hold | unhold | stop`. Session identity and the
+runtime rendezvous directory derive deterministically from the canonical workorder path, so every
+subcommand and the watcher independently compute the same target rather than agreeing by
+convention.
 
-So the RM now runs supervised. A watcher classifies transient provider failures from pane evidence,
-nudges with bounded exponential backoff until the run recovers, and distinguishes a stalled session
-from a process that actually exited, which matters because provider liveness cannot be read off the
-direct child: one provider runs as a native grandchild under a launcher thread, so naive checks
-report a healthy run-manager as dead and kill it. Detection walks descendants instead.
+A watcher loop classifies provider failures from pane evidence and separates a transient network
+fault from a session that has genuinely ended. Transient failures are nudged with bounded
+exponential backoff until the run resumes. Liveness resolves by walking process descendants rather
+than the direct child, so a provider running as a native grandchild under a launcher thread is
+correctly read as alive. A process that exited abnormally is restarted from its recorded launch
+identity instead of nudged, since nudging a dead shell accomplishes nothing.
 
-Recovery state is persisted atomically so backoff and restart bounds survive the watcher's own
-crash, the watcher lifecycle is managed under user-systemd, and a quota ladder handles the one
-failure mode where nudging is actively counterproductive: hitting a rate limit, where the right
-move is opt-in failover to another provider rather than retrying into the wall.
+Recovery state persists atomically, so backoff and restart bounds stay honest across the watcher's
+own crash. The watcher lifecycle is managed under user-systemd. A quota ladder handles rate limits
+with opt-in cross-provider failover, and the supervisor is provider-neutral by construction:
+provider kind is an explicit recorded field and all launch and resume argv passes through a narrow
+adapter.
 
 There is an obvious symmetry between all of this and the day job. Both are about knowing what a
 change actually touches before you let it through.
