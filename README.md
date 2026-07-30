@@ -54,39 +54,45 @@ costs money: if we make this change, what breaks?
 
 Too often that answer lives in tribal knowledge. One experienced person knows which work orders will
 slip. Someone else knows which approvals are required, which documents need revision, which
-suppliers are affected, or which evidence has to be re-run. That knowledge is fragile, expensive, and
-does not scale.
+suppliers are affected, or which evidence has to be re-run. That knowledge is fragile, expensive,
+and no one holds all of it at once.
 
-The **Verification Graph Engine** models the organization as a graph of parts, BOMs, suppliers,
-documents, approvals, and evidence. Changes and operational signals run against that graph to compute
-consequences: what a signal touches, what it may delay or invalidate, what evidence has to be
-re-established, what needs approval, who has to act, and what should move first.
+The **Verification Graph Engine** models the organization as one graph across the silos that
+normally cannot see each other: parts and BOMs, suppliers, inventory, work orders, documents,
+approvals, evidence, and the change record itself. The relationships are not hand-drawn. Each domain
+contributes its own from the records it already owns, so the graph reflects the current state of the
+business rather than a parallel model somebody has to maintain. Changes and operational signals run
+against it to compute consequences: what a signal touches, what it may delay or invalidate, what
+evidence has to be re-established, what needs approval, who has to act, and what should move first.
 
 **Impact Intelligence** turns that into a decision. A change you have not made yet is a first-class
-object. You open a case against a real signal, write down the alternatives, and the system compiles
-each one into a proposed graph and runs them against a single identical snapshot of the business
-taken at one instant. You compare, select, and the winner becomes a Draft Change Control exactly
-once, with nothing retyped and no second copy under a retry. The BOM is never touched to find out
-what touching it would do.
+object. A signal arrives, whether that is a supplier going on hold, a revised specification, a
+failed test, or a shipment that will not land in time. You open a case against it, write down the
+alternatives, and the system compiles each one into a proposed graph and runs them against a single
+identical snapshot of the business taken at one instant. You compare, select, and the winner becomes
+a Draft Change Control exactly once, with nothing retyped and no second copy under a retry. No
+system of record is touched to find out what touching it would do.
 
 Two things make the simulation trustworthy. It models what a change removes, not only what it adds,
-so replacing part A with part B shows A leaving rather than both arriving, and a dependency is
-suppressed only when the changed line was its last remaining cause. And it is contained by
-construction: proposed runs are marked on every edge and cannot be signed, packed into an evidence
-bundle, exported, or reused as a real result, which is what makes it safe to run hypotheticals inside
-a system whose other output is audit evidence. Cases, baselines, runs, and decisions are immutable
-and lineage linked, so months later you can still answer what was known at the time, what the system
-said, who chose, and whether the change did what it promised once it shipped.
+and a relationship disappears only when the change takes away its last remaining cause: a document
+that three regulations require does not stop being required when one of them is withdrawn. And it is
+contained by construction: proposed runs are marked on every edge and cannot be signed, packed into
+an evidence bundle, exported, or reused as a real result, which is what makes it safe to run
+hypotheticals inside a system whose other output is audit evidence. Cases, baselines, runs, and
+decisions are immutable and lineage linked, so months later you can still answer what was known at
+the time, what the system said, who chose, and whether the change did what it promised once it
+shipped.
 
 It scales past one decision. Findings normalize across cases, so a recurring consequence stops being
 rediscovered by hand every time. Batches evaluate many proposed changes together and rank what moves
 first. Signals arrive from connected systems and field observations rather than only from a person
-noticing. And because the whole surface is an API with an MCP server in front of it, an agent queries
-the same operational graph, under the same authority and the same refusals, that a person would.
+noticing. And because the whole surface is an API with an MCP server in front of it, an agent
+queries the same operational graph, under the same authority and the same refusals, that a person
+would.
 
-Underneath it: programmable operational engines for BOMs, inventory, assets, purchasing, work orders,
-quality, compliance, documents, and change control, delivered as tenant-scoped APIs. I architected
-the 370+ table schema, the 70+ API surfaces, and the event-driven backend.
+Underneath it: programmable operational engines for BOMs, inventory, assets, purchasing, work
+orders, quality, compliance, documents, and change control, delivered as tenant-scoped APIs. I
+architected the 370+ table schema, the 70+ API surfaces, and the event-driven backend.
 
 `Manufacturing` · `Regulated & Life Sciences` · `Aerospace & Defense` · `Energy & Utilities` · `Construction` · `Data Centers & Infrastructure` · `Field Services` · `Warehousing & 3PL`
 
