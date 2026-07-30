@@ -69,17 +69,14 @@ taken at one instant. You compare, select, and the winner becomes a Draft Change
 once, with nothing retyped and no second copy under a retry. The BOM is never touched to find out
 what touching it would do.
 
-The hard part is being honest about removal. Most impact tooling is additive. It can show what a
-change adds but not what it takes away, so "replace part A with part B" renders as "now depends on
-both," and a simulation that cannot show a dependency disappearing will confidently tell you nothing
-broke. A dependency is suppressed only when the changed line was its last remaining cause.
-
-Speculation is contained by construction. Proposed runs are marked on every edge and cannot be
-signed, packed into an evidence bundle, exported, or reused as a real result, which is what makes it
-safe to run hypotheticals inside a system whose other output is audit evidence. Cases, baselines,
-runs, and decisions are immutable and lineage linked, so months later you can still answer what was
-known at the time, what the system said, who chose, and whether the change did what it promised once
-it shipped.
+Two things make the simulation trustworthy. It models what a change removes, not only what it adds,
+so replacing part A with part B shows A leaving rather than both arriving, and a dependency is
+suppressed only when the changed line was its last remaining cause. And it is contained by
+construction: proposed runs are marked on every edge and cannot be signed, packed into an evidence
+bundle, exported, or reused as a real result, which is what makes it safe to run hypotheticals inside
+a system whose other output is audit evidence. Cases, baselines, runs, and decisions are immutable
+and lineage linked, so months later you can still answer what was known at the time, what the system
+said, who chose, and whether the change did what it promised once it shipped.
 
 It scales past one decision. Findings normalize across cases, so a recurring consequence stops being
 rediscovered by hand every time. Batches evaluate many proposed changes together and rank what moves
