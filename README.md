@@ -29,7 +29,7 @@
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square)](https://www.linkedin.com/in/bjordan1/)
 [![transistor](https://img.shields.io/badge/transistor-211%20%E2%98%85-24292f?style=flat-square&logo=python&logoColor=3776AB)](https://github.com/bomquote/transistor)
 
-`Change Intelligence` · `Signal-to-Action` · `Supplier Quality` · `Design-to-Manufacturing` · `MBSE` · `Offline-First Systems` · `Multi-Agent Development`
+`Change Intelligence` · `Scenario Simulation` · `Signal-to-Action` · `Supplier Quality` · `Design-to-Manufacturing` · `MBSE` · `Offline-First Systems` · `Multi-Agent Development`
 
 </div>
 
@@ -49,29 +49,52 @@
 
 **[equatorops.com](https://www.equatorops.com)** · CEO & Chief Architect · codebase started 2019
 
-Most operational software records work after the fact. EquatorOps helps companies understand what a
-new change, event, exception, or delay actually means, what it affects downstream, and what should
-happen next.
+Most operational software records work after the fact. EquatorOps answers the question that actually
+costs money: if we make this change, what breaks?
 
-Too often those answers live in tribal knowledge. One experienced person knows which work orders
-will slip. Someone else knows which approvals are required, which documents need revision, which
-suppliers are affected, or which evidence has to be re-run. That knowledge is fragile, expensive,
-and does not scale.
+Too often that answer lives in tribal knowledge. One experienced person knows which work orders will
+slip. Someone else knows which approvals are required, which documents need revision, which
+suppliers are affected, or which evidence has to be re-run. That knowledge is fragile, expensive, and
+does not scale.
 
-At the core is the **Verification Graph Engine**, powered by Impact Intelligence. It turns proposed
-changes and observed operational signals into computable consequences and next actions: what a
-signal touches, what it may delay or invalidate, what evidence is required, what needs approval,
-who needs to act, and what should move first.
+The **Verification Graph Engine** models the organization as a graph of parts, BOMs, suppliers,
+documents, approvals, and evidence. Changes and operational signals run against that graph to compute
+consequences: what a signal touches, what it may delay or invalidate, what evidence has to be
+re-established, what needs approval, who has to act, and what should move first.
 
-Programmable operational engines for BOMs, inventory, assets, purchasing, work orders, quality,
-compliance, documents, and change control, delivered as tenant-scoped APIs. I architected the
-300+ table schema, the 30+ APIs, and the event-driven backend.
+**Impact Intelligence** turns that into a decision. A change you have not made yet is a first-class
+object. You open a case against a real signal, write down the alternatives, and the system compiles
+each one into a proposed graph and runs them against a single identical snapshot of the business
+taken at one instant. You compare, select, and the winner becomes a Draft Change Control exactly
+once, with nothing retyped and no second copy under a retry. The BOM is never touched to find out
+what touching it would do.
 
-`Aerospace & Defense` · `Construction` · `Data Centers & Infrastructure` · `Energy & Utilities` · `Healthcare` · `Manufacturing` · `Regulated` · `Retail & Omnichannel` · `SaaS Platforms` · `Field Services` · `Warehousing & 3PL`
+The hard part is being honest about removal. Most impact tooling is additive. It can show what a
+change adds but not what it takes away, so "replace part A with part B" renders as "now depends on
+both," and a simulation that cannot show a dependency disappearing will confidently tell you nothing
+broke. A dependency is suppressed only when the changed line was its last remaining cause.
 
-Multi-tenant FastAPI and PostgreSQL with SQLAlchemy 2.0, React 19 and TypeScript on the front, an
-Astro marketing surface, and an MCP server so an agent can query the same operational graph a person
-would.
+Speculation is contained by construction. Proposed runs are marked on every edge and cannot be
+signed, packed into an evidence bundle, exported, or reused as a real result, which is what makes it
+safe to run hypotheticals inside a system whose other output is audit evidence. Cases, baselines,
+runs, and decisions are immutable and lineage linked, so months later you can still answer what was
+known at the time, what the system said, who chose, and whether the change did what it promised once
+it shipped.
+
+It scales past one decision. Findings normalize across cases, so a recurring consequence stops being
+rediscovered by hand every time. Batches evaluate many proposed changes together and rank what moves
+first. Signals arrive from connected systems and field observations rather than only from a person
+noticing. And because the whole surface is an API with an MCP server in front of it, an agent queries
+the same operational graph, under the same authority and the same refusals, that a person would.
+
+Underneath it: programmable operational engines for BOMs, inventory, assets, purchasing, work orders,
+quality, compliance, documents, and change control, delivered as tenant-scoped APIs. I architected
+the 370+ table schema, the 70+ API surfaces, and the event-driven backend.
+
+`Manufacturing` · `Regulated & Life Sciences` · `Aerospace & Defense` · `Energy & Utilities` · `Construction` · `Data Centers & Infrastructure` · `Field Services` · `Warehousing & 3PL`
+
+Multi-tenant FastAPI and PostgreSQL with SQLAlchemy 2.0, React 19 and TypeScript on the front, and an
+Astro marketing surface.
 
 ---
 
@@ -181,7 +204,8 @@ came back is correct, that the tests are not vacuously green, and that a lane di
 its own scope.
 
 There is an obvious symmetry between that and the day job. Both are about knowing what a change
-actually touches before you let it through.
+actually touches before you let it through, and both come down to the same rule: a lane cannot
+manufacture its own sign-off, and a hypothetical run cannot manufacture evidence.
 
 ---
 
